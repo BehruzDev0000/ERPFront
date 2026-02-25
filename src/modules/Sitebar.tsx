@@ -5,7 +5,8 @@ import {
   UserOutlined,
   DatabaseOutlined,
   CrownOutlined,
-  SafetyOutlined
+  SafetyOutlined,
+  LaptopOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -35,8 +36,12 @@ const Sitebar: React.FC = () => {
 
   return (
     <div >
-     
-      <Menu className='h-screen text-[17px]!'
+     <div className={`flex items-center ${collapsed ? 'gap-0! justify-center! p-0' : 'gap-3!'} p-5 border-white border-b-[1px]`}>
+      <LaptopOutlined className={`text-[40px]! text-white!`} />
+      {collapsed ? null : <h3 className='text-white text-[20px]! font-bold'>Admin Panel</h3>}
+     </div>
+     <div className='mt-2'>
+       <Menu className='h-screen text-[17px]!'
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
@@ -44,6 +49,7 @@ const Sitebar: React.FC = () => {
         inlineCollapsed={collapsed}
         items={items}
       />
+     </div>
     </div>
   );
 };
