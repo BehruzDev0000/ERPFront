@@ -15,7 +15,7 @@ const Stacks = () => {
   const navigate=useNavigate()
   const {data:stacks=[],isLoading}=useQuery<StackType[]>({
     queryKey: ['stacks',name],
-    queryFn: () => instance().get('stacks',{headers: {Authorization: `Bearer ${cookies.token}`},params:{name}}).then(res => res.data.data),
+    queryFn: () => instance(cookies.token).get('stacks',{params:{name}}).then(res => res.data.data),
   })
   return (
     <div className="p-5">
@@ -26,11 +26,14 @@ const Stacks = () => {
 
       <ul className="flex justify-center flex-wrap gap-5 mt-5">
       {
-        isLoading?<h1>Loading...</h1>:stacks.map((stack: StackType) => (
+        isLoading?<h1>Loading...</h1> :stacks.map((stack: StackType) => (
           <Card className="border! border-black!" style={{width:300}} key={stack.id} title={stack.name} extra={<Button onClick={() => navigate(`/stacks/${stack.id}`)} type="primary" className="bg-transparent! border! border-black! text-black!" icon={<MoreOutlined/>}></Button>}>
             <p>{stack.description}</p>
           </Card>
         ))
+      }
+      {
+        name.length>0 && stacks.length===0 && <h1>No stacks found for this name</h1>
       }
 
       </ul>

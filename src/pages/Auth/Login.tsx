@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-const [, setCookie, ] = useCookies(['token']);
+  const [cookies,setCookie] = useCookies(['token']);
     const LoginFn=useMutation({
-        mutationFn: (data: { email: string; password: string }) => instance().post('auth/login', data),
+        mutationFn: (data: { email: string; password: string }) => instance(cookies.token).post('auth/login', data),
         onSuccess: (res) => {
             setTimeout(() => {
                 toast.success('Login successful!');

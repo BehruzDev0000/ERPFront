@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd"
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
+import { MenuUnfoldOutlined, MenuFoldOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useContext, useState } from "react";
 import { Context } from "../context/GlobalContext";
 import { useCookies } from "react-cookie";
@@ -29,13 +29,11 @@ setLoading(true)
 
   }
   return (
-    <div className="bg-[#001529] flex items-center justify-between p-6">
-
-
-       <Button  onClick={toggleCollapsed} className="bg-[#001529]">
+    <div className="bg-[#001529] flex items-center justify-between px-7 py-5 sticky top-0 z-50">
+       <Button size="large" onClick={toggleCollapsed} className="bg-[#001529]">
         {collapsed ? <MenuUnfoldOutlined className="bg-transparent"  /> : <MenuFoldOutlined className="bg-transparent" />}
       </Button>
-    <Button type="primary" onClick={() => setLogOutModal(true)}>
+    <Button type="primary" size="large" icon={<LogoutOutlined />} onClick={() => setLogOutModal(true)}>
       Log Out
     </Button>
 <Modal title="Can you sure you want to log out?"  open={LogOutModal} confirmLoading={loading} onOk={LogOut} onCancel={() => setLogOutModal(false)}></Modal>

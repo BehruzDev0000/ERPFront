@@ -14,7 +14,7 @@ const Caption:FC<CaptionProps> = ({title,count,icon}) => {
             <h1 className="font-bold text-[22px]">{title}</h1>
             <p className="text-[16px] text-slate-400"> count ({count})</p>
         </div>
-        <Button type="primary" icon={icon} iconPlacement='start' onClick={() => navigate('create')}>Create</Button>
+        <Button type="primary" icon={icon} iconPlacement='start' size="large" onClick={() => navigate('create')}>Create</Button>
     </div>
   )
 }
