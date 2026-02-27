@@ -4,14 +4,20 @@ import { Button, Form, Input } from 'antd';
 import { instance } from '../../hooks';
 import toast from 'react-hot-toast';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-const [, setCookie, ] = useCookies(['token']);
+  const navigate = useNavigate();
+  const [cookies,setCookie] = useCookies(['token']);
     const LoginFn=useMutation({
-        mutationFn: (data: { email: string; password: string }) => instance().post('auth/login', data),
+        mutationFn: (data: { email: string; password: string }) => instance(cookies.token).post('auth/login', data),
         onSuccess: (res) => {
-            toast.success('Login successful!');
-            setCookie('token', res.data.data.refreshToken)
+            setTimeout(() => {
+                toast.success('Login successful!');
+                
+                setCookie('token', res.data.data.tokens.accessToken);
+                navigate('/');
+            }, 1000)
         }
     });
 
@@ -28,17 +34,17 @@ const [, setCookie, ] = useCookies(['token']);
       onFinish={onFinish}
       className='bg-white! rounded-lg! shadow-md! p-5!'
     >
-      <Form.Item
+      <Form.Item 
         name="email"
         rules={[{ required: true, message: 'Please input your Email!' }]}
       >
-        <Input  size='large' prefix={<UserOutlined className='text-[20px] text-[#c4c4c4]!' />} placeholder="user@gmail.com" />
+        <Input autoComplete='false' size='large' prefix={<UserOutlined className='text-[20px] text-[#c4c4c4]!' />} placeholder="user@gmail.com" />
       </Form.Item>
       <Form.Item 
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <Input.Password size='large'  prefix={<LockOutlined />} type="password" placeholder="Password" />
+        <Input.Password autoComplete='false' size='large'  prefix={<LockOutlined />} type="password" placeholder="Password" />
       </Form.Item>
       
 

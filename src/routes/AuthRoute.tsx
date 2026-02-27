@@ -1,6 +1,5 @@
 import { Path } from "../components"
-import AuthHome from "../pages/Auth/Home"
-import Login from "../pages/Auth/Login"
+import {Login,AuthHome} from "../pages/Auth"
 import { Route, Routes } from 'react-router-dom'
 
 const AuthRoute = () => {

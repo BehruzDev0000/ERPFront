@@ -1,21 +1,13 @@
-import  { useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import { useEffect, useState } from "react";
 
- const debounce= ()=> {
-  const [text, setText] = useState('Hello');
-  const [value] = useDebounce(text, 1000);
-
-  return (
-    <div>
-      <input
-        defaultValue={'Hello'}
-        onChange={(e) => {
-          setText(e.target.value);
-        }}
-      />
-      <p>Actual value: {text}</p>
-      <p>Debounce value: {value}</p>
-    </div>
-  );
+function debounce(value:string, delay:number){
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  return debouncedValue
 }
-export default debounce
+export default debounce;

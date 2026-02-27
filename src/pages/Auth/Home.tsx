@@ -1,7 +1,13 @@
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { Path } from "../../components"
+
 const AuthHome = () => {
-  return (
-    <div>Home</div>
-  )
+  const navigate=useNavigate()
+  useEffect(() => {
+    navigate(Path.login)
+  }, [])
+  return null
 }
 
 export default AuthHome
